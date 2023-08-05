@@ -1,0 +1,67 @@
+type Query {
+  users(input: UserFilterInput): UserList!
+  user(id: ID!): User!
+}
+
+type Mutation {
+  createUser(input: CreateUserInput!): User!
+  updateUser(id: ID!, input: UpdateUserInput!): User!
+  removeUser(id: ID!): User!
+  login(input: LoginInput!): LoginResponse!
+}
+
+type Subscription {
+  userCreated: User!
+}
+
+type User {
+  id: ID!
+  first_name: String!
+  last_name: String!
+  username: String!
+  password: String!
+  is_deleted: Boolean!
+}
+
+input UserFilterInput {
+  q: String
+  limit: Int
+  offset: Int
+  sort_by: String
+  sort_order: String
+  is_deleted: Boolean
+}
+
+type UserList {
+  users: [User!]!
+  pageInfo: PageInfo!
+}
+
+type PageInfo {
+  total: Int!
+  offset: Int!
+  limit: Int!
+}
+
+type LoginResponse {
+  token: String
+}
+
+input CreateUserInput {
+  first_name: String!
+  last_name: String!
+  username: String!
+  password: String!
+}
+
+input UpdateUserInput {
+  first_name: String
+  last_name: String
+  username: String
+  password: String
+}
+
+input LoginInput {
+  username: String!
+  password: String!
+}
